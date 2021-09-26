@@ -1,0 +1,48 @@
+
+<div class="card text-dark bg-light mb-3">
+    <div class="card-header">Clientes</div>
+    <div class="card-body">
+      <h5 class="card-title">Listado de clientes</h5>
+        <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary" [routerLink]="['/productos/form']" routerLinkActive="router-link-active" >Nuevo producto</button>
+        </div>
+        <table class="table table-bordered table-sriped" *ngIf="productos?.length>0">
+            
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nombre</th>
+                    <th>apellido</th>
+                    <th>email</th>
+                    <th>fecha</th>
+                    <th>editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr *ngFor="let p of productos">
+                    <th>
+                        <img src="../../assets/s1.png" class="figure-img img-fluid rounded ps-5"
+                        style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    </th>
+                    <th>{{p.id}}</th>
+                    <th>{{p.nombre}}</th>
+                    <th>${{p.precio}}</th>
+                    <th>{{p.descripcion}}</th>
+                    <td>
+                        <button type="button" name="button" [routerLink]="['/productos/form', p.id]" class="btn btn-primary">Editar</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="delete(p)">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="productos?.length < 1" class="alert alert-info">
+            no hay registros
+        </div>
+    </div>
+  </div>
