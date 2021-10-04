@@ -6,14 +6,22 @@
             <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="producto.nombre" name="nombre">
+                    <input type="text" class="form-control" [(ngModel)]="producto.nombre" name="nombre" #nombre="ngModel" required minlength="2" id="formNombre">
+                    <!-- <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                        <div *ngIf="nombre.errors.required">
+                            nombre es requerido
+                        </div>
+                        <div *ngIf="nombre.errors.minlength">
+                            el nombre debe tener por lo menos 2 letras
+                        </div>
+                    </div> -->
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="precio" class="col-form-label col-sm-2">Precio</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" [(ngModel)]="producto.precio" name="precio">
+                    <input type="number" class="form-control" [(ngModel)]="producto.precio" name="precio" required>
                 </div>
             </div>
 
@@ -27,7 +35,7 @@
             <div class="form-group row">
                 <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" [(ngModel)]="producto.cantidad" name="cantidad">
+                    <input type="number" class="form-control" [(ngModel)]="producto.cantidad" name="cantidad" required>
                 </div>
             </div>
 
@@ -36,7 +44,7 @@
                     <button class="btn btn-primary" role="button" (click) = "create()" *ngIf="!producto.id else elseBlock">Crear</button>
 
                     <ng-template #elseBlock>
-                        <button class="btn btn-primary" role="button" (click) = "update()">Editarr</button>
+                        <button class="btn btn-primary" role="button" (click) = "update()">Editar</button>
                     </ng-template>
                     
                 </div>

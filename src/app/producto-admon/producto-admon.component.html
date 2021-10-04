@@ -1,20 +1,22 @@
 
 <div class="card text-dark bg-light mb-3">
-    <div class="card-header">Clientes</div>
     <div class="card-body">
-      <h5 class="card-title">Listado de clientes</h5>
+      <h5 class="card-title">Productos disponibles</h5>
         <div class="my-2 text-left">
             <button class="btn btn-rounded btn-primary" [routerLink]="['/productos/form']" routerLinkActive="router-link-active" >Nuevo producto</button>
         </div>
+        <!-- <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary" [routerLink]="['productos/admon/page/', 1]" routerLinkActive="router-link-active" >Siguiente pagina</button>
+        </div> -->
         <table class="table table-bordered table-sriped" *ngIf="productos?.length>0">
             
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th></th>
+                    <th>cantidad</th>
                     <th>nombre</th>
-                    <th>apellido</th>
-                    <th>email</th>
-                    <th>fecha</th>
+                    <th>precio</th>
+                    <th>descripcion</th>
                     <th>editar</th>
                     <th>Eliminar</th>
                 </tr>
@@ -26,7 +28,7 @@
                         <img src="../../assets/s1.png" class="figure-img img-fluid rounded ps-5"
                         style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     </th>
-                    <th>{{p.id}}</th>
+                    <th>{{p.cantidad}}</th>
                     <th>{{p.nombre}}</th>
                     <th>${{p.precio}}</th>
                     <th>{{p.descripcion}}</th>
@@ -46,3 +48,5 @@
         </div>
     </div>
   </div>
+
+  <paginator-nav *ngIf="paginador" [paginador] = "paginador"></paginator-nav>

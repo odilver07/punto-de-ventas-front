@@ -1,6 +1,9 @@
 <section>
     <div class="container text-white">
         <div class="row pb-5 text-center justify-content-between mb-5 mx-2" >
+          <div *ngIf="productos?.length < 1" class="alert alert-info">
+            no hay registros
+        </div>
 
           <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" *ngFor="let p of productos">
                 <div class="card fondoNegro">
@@ -8,7 +11,8 @@
                     <h5 class="card-title h3 fw-bold">{{p.nombre}}</h5>
                     <hr>
                   </div>
-                  <img src="images/s1.png" class="card-img-top" alt="...">
+                  <img src="../../assets/s1.png" class="figure-img img-fluid rounded mx-auto"
+                        style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <ul class="list-group list-group-flush">
                           <li>{{p.precio}}</li>
                           <li class="list-group-item fondoNegro m-4">

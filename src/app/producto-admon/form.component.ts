@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+
   producto: Producto = new Producto();
   constructor(private productoService: ProductoService,
     protected router: Router,
@@ -26,22 +27,29 @@ export class FormComponent implements OnInit {
         this.productoService.getProducto(id).subscribe( (producto => this.producto = producto))
       }
     })
+
   }
 
   public create():void{
+    this.producto.descripcion = !this.producto.descripcion && this.producto.nombre?
+    this.producto.nombre:this.producto.descripcion;
+
+    console.log(this.producto);
+
     this.productoService.create(this.producto).subscribe(
-      response => {
-        this.router.navigate(['/productos']);
-        Swal.fire('Nuevo producto',`Se agrego el producto ${response.nombre}`,'success'); 
+      json => {
+        this.router.navigate(['/productos/admon']);
+        Swal.fire('Nuevo producto',`${json.mensaje}: ${json.producto.nombre}`,'success'); 
       }
     )
   }
 
   update():void{
-    this.productoService.update(this.producto).subscribe( response => {
+    this.productoService.update(this.producto).subscribe( json => {
       this.router.navigate(['/productos/admon']);
-      Swal.fire('Producto actualizado',`Producto ${response.nombre} con exito`,'success'); 
+      Swal.fire('Producto actualizado',`${json.mensaje} ${json.producto.nombre}`,'success'); 
     })
   }
+
 
 }

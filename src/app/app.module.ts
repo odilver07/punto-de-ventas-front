@@ -12,12 +12,13 @@ import { ProductoService } from './produto/producto.service';
 import { ProductoAdmonComponent } from './producto-admon/producto-admon.component';
 import { FormComponent } from './producto-admon/form.component';
 import { FormsModule } from '@angular/forms';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 // Rutas
 const routes: Routes = [
   {path: '', redirectTo: '/productos', pathMatch: 'full'},
   {path: 'productos', component: ProductoComponent},
-  {path: 'productos/admon', component: ProductoAdmonComponent},
+  {path: 'productos/admon/page/:page', component: ProductoAdmonComponent},
   {path: 'productos/form', component: FormComponent},
   {path: 'productos/form/:id', component: FormComponent}
 ];
@@ -29,7 +30,8 @@ const routes: Routes = [
     FooterComponent,
     ProductoComponent,
     ProductoAdmonComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
