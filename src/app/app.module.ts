@@ -13,6 +13,8 @@ import { ProductoAdmonComponent } from './producto-admon/producto-admon.componen
 import { FormComponent } from './producto-admon/form.component';
 import { FormsModule } from '@angular/forms';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { VistaProductoComponent } from './vista-producto/vista-producto.component';
+import { LoginComponent } from './login/login.component';
 
 // Rutas
 const routes: Routes = [
@@ -20,7 +22,9 @@ const routes: Routes = [
   {path: 'productos', component: ProductoComponent},
   {path: 'productos/admon/page/:page', component: ProductoAdmonComponent},
   {path: 'productos/form', component: FormComponent},
-  {path: 'productos/form/:id', component: FormComponent}
+  {path: 'productos/form/:id', component: FormComponent},
+  {path: 'producto/vista/:id', component: VistaProductoComponent },
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
@@ -31,7 +35,9 @@ const routes: Routes = [
     ProductoComponent,
     ProductoAdmonComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    VistaProductoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

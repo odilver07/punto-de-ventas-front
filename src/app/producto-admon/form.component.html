@@ -1,11 +1,12 @@
-<div class="card bg-dark text-white">
+<div class="card fondoNegro text-white">
     <div class="card-header"></div>
-    <div class="card-body">
-
-        <form>
-            <div class="form-group row">
+    <div class="card-body row">
+        <!-- <div class="col-sm-8">col-sm-8</div>
+        <div class="col-sm-4">col-sm-4</div> -->
+        <form class="col-sm-9">
+            <div class="form-group row mt-3">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-                <div class="col-sm-6">
+                <div class="col-sm-10">
                     <input type="text" class="form-control" [(ngModel)]="producto.nombre" name="nombre" #nombre="ngModel" required minlength="2" id="formNombre">
                     <!-- <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                         <div *ngIf="nombre.errors.required">
@@ -18,29 +19,34 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row mt-4">
                 <label for="precio" class="col-form-label col-sm-2">Precio</label>
-                <div class="col-sm-6">
+                <div class="col-sm-10">
                     <input type="number" class="form-control" [(ngModel)]="producto.precio" name="precio" required>
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row mt-4">
                 <label for="descripcion" class="col-form-label col-sm-2">Descripcion</label>
-                <div class="col-sm-6">
+                <div class="col-sm-10">
                     <input type="text" class="form-control" [(ngModel)]="producto.descripcion" name="descripcion">
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row mt-4">
                 <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
-                <div class="col-sm-6">
+                <div class="col-sm-10">
                     <input type="number" class="form-control" [(ngModel)]="producto.cantidad" name="cantidad" required>
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-6">
+            <div class="form-group row mt-4">
+                <label for="formFile" class="form-label">Seleccione una imagen para el producto</label>
+                <input class="form-control" type="file" id="formFile" (change) = "seleccionarFoto($event)">
+            </div>
+
+            <div class="form-group row mt-4">
+                <div class="col-sm-10">
                     <button class="btn btn-primary" role="button" (click) = "create()" *ngIf="!producto.id else elseBlock">Crear</button>
 
                     <ng-template #elseBlock>
@@ -48,7 +54,11 @@
                     </ng-template>
                     
                 </div>
+                
             </div>
         </form>
+        <img *ngIf="!producto?.foto" src="../../assets/s1.png" style="width: 360px; height: 450px;" class="col-sm-3" alt="">
+        <img src="http://localhost:8080/api/uploads/img/{{producto.foto}}" class="col-sm-3" alt="">
+        <!-- <p>{{producto.foto}} ppp</p> -->
     </div>
 </div>

@@ -1,0 +1,23 @@
+
+<div class="container mx-auto mt-5" >
+    
+        <div class="imgBx">
+            <img *ngIf="producto?.foto" src="http://localhost:8080/api/uploads/img/{{producto.foto}}" style="width: 380px; height: 450px;" alt="">
+            <img *ngIf="!producto.foto" src="../../assets/s1.png" alt="PokerCel proyecto by Odilver">
+        </div>
+        <div class="details">
+            <div class="content">
+                <h2>{{producto.nombre}}<br>
+                    <span>Xiaomi</span>
+                </h2>
+                <p>
+                    {{producto.descripcion}}
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque saepe repudiandae dolorum excepturi aspernatur mollitia quaerat at, itaque voluptatum suscipit eum eius sit totam placeat. Cupiditate repellendus illum laudantium facere?
+                </p>
+                
+                <h3>${{producto.precio}}</h3>
+                <button>Comprar ahora</button>
+            </div>
+        </div>
+</div>
+

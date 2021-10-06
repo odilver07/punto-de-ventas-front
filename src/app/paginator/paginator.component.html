@@ -10,10 +10,7 @@
     </li>
 
     <li class="page-item">
-        <span class="page-link" *ngIf="paginador.number == paginador.totalPages">&raquo;</span>
+        <span class="page-link" *ngIf="paginador.number == paginador.totalPages-1">&raquo;</span>
         <a class="page-link" [routerLink]="['/productos/admon/page', paginador.number+1]" *ngIf="paginador.number < paginador.totalPages-1">&raquo;</a>    
-        <!-- <ng-template #elseBlock>
-            <span class="page-link">&raquo;</span>
-        </ng-template> -->
     </li>
 </ul>

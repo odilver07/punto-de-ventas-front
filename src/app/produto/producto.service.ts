@@ -60,4 +60,16 @@ export class ProductoService {
   delete(id: number):Observable<Producto>{
     return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`,{headers: this.httpHeaders});
   }
+
+  subirFoto(archivo: File, id): Observable<any>{
+    let formData = new FormData();
+    formData.append("archivo", archivo);
+    formData.append("id",id);
+    return this.http.post<Producto>(`${this.urlEndPoint}/upload/`, formData).pipe(
+      catchError(e => {
+        Swal.fire('Error', e.error.mensaje, 'error');
+        return throwError(e);
+      })
+    );
+  }
 }
