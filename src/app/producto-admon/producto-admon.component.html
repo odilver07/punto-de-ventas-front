@@ -17,6 +17,7 @@
                         <th>nombre</th>
                         <th>precio</th>
                         <th>descripcion</th>
+                        <th>marca</th>
                         <th>editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -37,6 +38,7 @@
                         <th>{{p.nombre}}</th>
                         <th>${{p.precio}}</th>
                         <th>{{p.descripcion}}</th>
+                        <th>{{p.marca.nombre}}</th>
                         <td>
                             <button type="button" name="button" [routerLink]="['/productos/form', p.id]" class="btn btn-primary">Editar</button>
                         </td>

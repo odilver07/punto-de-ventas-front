@@ -3,6 +3,7 @@ import { Producto } from '../produto/producto';
 import { ProductoService } from '../produto/producto.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Marca } from '../produto/marca';
 
 @Component({
   selector: 'app-form',
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
 
   producto: Producto = new Producto();
+  marcas: Marca[];
   private fotoSeleccionada: File;
 
   constructor(private productoService: ProductoService,
@@ -28,7 +30,12 @@ export class FormComponent implements OnInit {
       if(id){
         this.productoService.getProducto(id).subscribe( (producto => this.producto = producto));
       }
-    })
+    });
+
+    this.productoService.getMarcas().subscribe( m => {
+      this.marcas = m;
+      console.log(this.marcas);
+    });
   }
 
   public create():void{
@@ -66,5 +73,11 @@ export class FormComponent implements OnInit {
     console.log(this.fotoSeleccionada);
   }
 
+  public comprarMarca(o1:Marca, o2:Marca){
+    if(o1 === undefined && o2 === undefined){
+      return true;
+    }
+    return o1 == null || o2 == null? false: o1.id === o2.id;
+  } 
 
 }

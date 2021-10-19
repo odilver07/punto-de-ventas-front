@@ -4,6 +4,7 @@ import { Producto } from '../produto/producto';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Marca } from '../produto/marca';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class ProductoAdmonComponent implements OnInit {
         this.paginador = producto;
       }
     );
-  }); 
+  });
+
  }
 
   delete(producto:Producto):void{

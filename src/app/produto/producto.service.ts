@@ -5,14 +5,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Marca } from './marca';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
   private urlEndPoint = 'http://localhost:8080/api/productos';
+  private urlEndPoint2 = 'http://localhost:8080/api';
   private httpHeaders =  new HttpHeaders({'Content-Type' : 'application/json'});
   constructor(private http: HttpClient, protected router: Router) { }
+
+  private isNoAutorizado(e): boolean {
+    if(e.status==401 || e.status==403){
+      this.router.navigate(['/login'])
+      return true;
+    }
+    return false;
+  }
 
   getProductosPorPagina(page: Number):Observable<any>{
     return this.http.get(`${this.urlEndPoint}/page/${page}`).pipe(
@@ -32,6 +42,11 @@ export class ProductoService {
   create(producto: Producto): Observable<any> {
     return this.http.post<Producto>(this.urlEndPoint, producto,{headers: this.httpHeaders} ).pipe(
       catchError(e => {
+
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+
         Swal.fire('Error', e.error.mensaje, 'error');
         return throwError(e);
       })
@@ -51,14 +66,24 @@ export class ProductoService {
   update(producto:Producto):Observable<any>{
     return this.http.put<Producto>(`${this.urlEndPoint}/${producto.id}`,producto,{headers:this.httpHeaders}).pipe(
       catchError( e => {
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
         Swal.fire('Error', e.error.mensaje, 'error');
         return throwError(e);
       })
     )
   }
 
-  delete(id: number):Observable<Producto>{
-    return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`,{headers: this.httpHeaders});
+  delete(id: number):Observable<any>{
+    return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`,{headers: this.httpHeaders}).pipe(
+      catchError( e => {
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+        return e;
+      })
+    );
   }
 
   subirFoto(archivo: File, id): Observable<any>{
@@ -67,9 +92,16 @@ export class ProductoService {
     formData.append("id",id);
     return this.http.post<Producto>(`${this.urlEndPoint}/upload/`, formData).pipe(
       catchError(e => {
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
         Swal.fire('Error', e.error.mensaje, 'error');
         return throwError(e);
       })
     );
+  }
+
+  getMarcas():Observable<Marca[]>{
+    return this.http.get<Marca[]>(this.urlEndPoint2+'/marcas')
   }
 }
