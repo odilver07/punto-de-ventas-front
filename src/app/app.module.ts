@@ -11,10 +11,15 @@ import {HttpClientModule} from '@angular/common/http';
 import { ProductoService } from './produto/producto.service';
 import { ProductoAdmonComponent } from './producto-admon/producto-admon.component';
 import { FormComponent } from './producto-admon/form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { VistaProductoComponent } from './vista-producto/vista-producto.component';
 import { LoginComponent } from './login/login.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input'; 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BuscadorComponent } from './buscador/buscador.component';
 
 // Rutas
 const routes: Routes = [
@@ -24,7 +29,8 @@ const routes: Routes = [
   {path: 'productos/form', component: FormComponent},
   {path: 'productos/form/:id', component: FormComponent},
   {path: 'producto/vista/:id', component: VistaProductoComponent },
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'productos/disponibles/:term', component: BuscadorComponent}
 ];
 
 @NgModule({
@@ -37,13 +43,19 @@ const routes: Routes = [
     FormComponent,
     PaginatorComponent,
     VistaProductoComponent,
-    LoginComponent
+    LoginComponent,
+    BuscadorComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule,
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule
   ],
   providers: [ProductoService],
   bootstrap: [AppComponent]

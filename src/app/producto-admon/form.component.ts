@@ -42,6 +42,11 @@ export class FormComponent implements OnInit {
     this.producto.descripcion = !this.producto.descripcion && this.producto.nombre?
     this.producto.nombre:this.producto.descripcion;
 
+    if(this.producto.marca == null){
+      Swal.fire('Error','Elija una marca', 'warning');
+      return;
+    }
+
     console.log(this.producto);
 
     this.productoService.create(this.producto).subscribe(
@@ -57,6 +62,12 @@ export class FormComponent implements OnInit {
   }
 
   update():void{
+
+    if(this.producto.marca == null){
+      Swal.fire('Error','Elija una marca', 'warning');
+      return;
+    }
+
     this.productoService.update(this.producto).subscribe( json => {
       this.router.navigate(['/productos/admon/page/0']);
       Swal.fire('Producto actualizado',`${json.mensaje} ${json.producto.nombre}`,'success'); 

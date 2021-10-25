@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Marca } from './marca';
+import { AuthService } from '../login/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,33 @@ export class ProductoService {
   private urlEndPoint = 'http://localhost:8080/api/productos';
   private urlEndPoint2 = 'http://localhost:8080/api';
   private httpHeaders =  new HttpHeaders({'Content-Type' : 'application/json'});
-  constructor(private http: HttpClient, protected router: Router) { }
+  constructor(private http: HttpClient, 
+    protected router: Router
+    ,protected authService: AuthService) { }
+
+  private agregarAuthorizationHeader(){
+    let token = this.authService.token;
+    if(token != null){
+      return this.httpHeaders.append('Authorization', 'Bearer '+token)
+    }
+    return this.httpHeaders;
+  }
 
   private isNoAutorizado(e): boolean {
-    if(e.status==401 || e.status==403){
-      this.router.navigate(['/login'])
+
+    if(e.status==403 || e.status==401){
+      Swal.fire({
+        title: 'Acceso restringido.',
+        background: '#040404',
+        imageUrl: 'http://localhost:8080/api/uploads/img/alto-ahi-loca.jpg',
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+      })
+      this.router.navigate(['/productos'])
       return true;
     }
+
     return false;
   }
 
@@ -38,9 +59,9 @@ export class ProductoService {
   getProductos(): Observable<Producto[]>{
     return this.http.get<Producto[]>(this.urlEndPoint);
   }
-
+  // Aqui cambiamos el headers checar si da error
   create(producto: Producto): Observable<any> {
-    return this.http.post<Producto>(this.urlEndPoint, producto,{headers: this.httpHeaders} ).pipe(
+    return this.http.post<Producto>(this.urlEndPoint, producto,{headers: this.agregarAuthorizationHeader()} ).pipe(
       catchError(e => {
 
         if(this.isNoAutorizado(e)){
@@ -64,7 +85,7 @@ export class ProductoService {
   }
 
   update(producto:Producto):Observable<any>{
-    return this.http.put<Producto>(`${this.urlEndPoint}/${producto.id}`,producto,{headers:this.httpHeaders}).pipe(
+    return this.http.put<Producto>(`${this.urlEndPoint}/${producto.id}`,producto,{headers: this.agregarAuthorizationHeader()}).pipe(
       catchError( e => {
         if(this.isNoAutorizado(e)){
           return throwError(e);
@@ -76,7 +97,7 @@ export class ProductoService {
   }
 
   delete(id: number):Observable<any>{
-    return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`,{headers: this.httpHeaders}).pipe(
+    return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`,{headers: this.agregarAuthorizationHeader()}).pipe(
       catchError( e => {
         if(this.isNoAutorizado(e)){
           return throwError(e);
@@ -90,15 +111,28 @@ export class ProductoService {
     let formData = new FormData();
     formData.append("archivo", archivo);
     formData.append("id",id);
-    return this.http.post<Producto>(`${this.urlEndPoint}/upload/`, formData).pipe(
+
+    let httpHeaders =  new HttpHeaders();
+    let token = this.authService.token;
+    if(token != null){
+      httpHeaders = httpHeaders.append('Authorization','Bearer '+token);
+    }
+
+    return this.http.post<Producto>(`${this.urlEndPoint}/upload`, formData, {
+      reportProgress: true,
+      headers: httpHeaders
+    }).pipe(
       catchError(e => {
         if(this.isNoAutorizado(e)){
           return throwError(e);
         }
-        Swal.fire('Error', e.error.mensaje, 'error');
         return throwError(e);
       })
     );
+  }
+
+  buscarPorNombre(term): Observable<Producto[]>{
+    return this.http.get<Producto[]>(`${this.urlEndPoint}/disponibles/${term}`);
   }
 
   getMarcas():Observable<Marca[]>{

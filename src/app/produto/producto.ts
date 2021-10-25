@@ -7,4 +7,5 @@ export class Producto {
     foto: string;
     marca:Marca;
     cantidad: number = 1;
+    meses:number;
 }
