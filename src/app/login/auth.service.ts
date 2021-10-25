@@ -46,6 +46,11 @@ export class AuthService {
     return this.http.post<any>(urlEndPoint, params.toString(), {headers: httpHeaders});
   }
 
+  crearUsuario(usuario: Usuario):Observable<Usuario>{
+    const urlEndPoint = 'http://localhost:8080/api/save/user'
+    return this.http.post<Usuario>(urlEndPoint,usuario);
+  }
+
   guardarUsuario(accessToken: string):void{
     let payload = this.obtenerDatosToken(accessToken);
     // aqui estan los datos

@@ -43,6 +43,7 @@
         <label for="password">Password</label>
         <input [(ngModel)]="usuario.password" type="password" id="password" name="password">
         <button (click)="login()" type="submit" class="btn btn-outline-dark w-100">Ingresar <i class="bi bi-suit-club-fill"></i></button>
+        <a [routerLink]="['/new/user']" >No tienes una cuenta registrate</a>
       </form>
       
     </div>

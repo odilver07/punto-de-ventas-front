@@ -20,6 +20,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { NewUsuarioComponent } from './login/new-usuario/new-usuario.component';
 
 // Rutas
 const routes: Routes = [
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path: 'productos/form/:id', component: FormComponent},
   {path: 'producto/vista/:id', component: VistaProductoComponent },
   {path: 'login', component: LoginComponent},
-  {path: 'productos/disponibles/:term', component: BuscadorComponent}
+  {path: 'productos/disponibles/:term', component: BuscadorComponent},
+  {path: 'new/user', component: NewUsuarioComponent}
 ];
 
 @NgModule({
@@ -44,7 +46,8 @@ const routes: Routes = [
     PaginatorComponent,
     VistaProductoComponent,
     LoginComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    NewUsuarioComponent
   ],
   imports: [
     BrowserModule,

@@ -17,4 +17,8 @@ export class ProductoComponent implements OnInit {
     );
   }
 
+  click(id):void{
+    console.log(id);
+  }
+
 }
