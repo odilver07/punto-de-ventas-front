@@ -1,3 +1,4 @@
+import { Carrito } from '../produto/carrito';
 export class Usuario {
     id : number;
     username: string;
@@ -5,4 +6,9 @@ export class Usuario {
     enable: boolean;
     email: string;
     roles: string[] = [];
+    carritoid: number;
+    nombre: string;
+    apellido: string;
+    direccion: string;
+    codigo: number;
 }

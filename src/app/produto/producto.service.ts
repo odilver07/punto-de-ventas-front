@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Marca } from './marca';
 import { AuthService } from '../login/auth.service';
+import { Item } from './item';
+import { Carrito } from './carrito';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +98,10 @@ export class ProductoService {
     )
   }
 
+  updateCarrito(carrito:Carrito):Observable<Carrito>{
+    return this.http.put<Carrito>(`${this.urlEndPoint2}/carrito/save`,carrito,{headers: this.agregarAuthorizationHeader()});
+  }
+
   delete(id: number):Observable<any>{
     return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`,{headers: this.agregarAuthorizationHeader()}).pipe(
       catchError( e => {
@@ -137,5 +143,13 @@ export class ProductoService {
 
   getMarcas():Observable<Marca[]>{
     return this.http.get<Marca[]>(this.urlEndPoint2+'/marcas')
+  }
+
+  getCarrito(id): Observable<Carrito>{
+    return this.http.get<Carrito>(`${this.urlEndPoint2}/carrito/${id}`,{headers: this.agregarAuthorizationHeader()})
+  }
+
+  saveItem(item: Item):Observable<any>{
+    return this.http.post<any>(this.urlEndPoint2+'/item',item, {headers: this.agregarAuthorizationHeader()} );
   }
 }
