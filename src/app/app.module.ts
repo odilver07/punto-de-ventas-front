@@ -21,6 +21,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { NewUsuarioComponent } from './login/new-usuario/new-usuario.component';
+import { CarritoComponent } from './carrito/carrito.component';
+import { PagoComponent } from './pago/pago.component';
 
 // Rutas
 const routes: Routes = [
@@ -32,7 +34,9 @@ const routes: Routes = [
   {path: 'producto/vista/:id', component: VistaProductoComponent },
   {path: 'login', component: LoginComponent},
   {path: 'productos/disponibles/:term', component: BuscadorComponent},
-  {path: 'new/user', component: NewUsuarioComponent}
+  {path: 'new/user', component: NewUsuarioComponent},
+  {path: 'carrito', component: CarritoComponent},
+  {path: 'metodo/pago', component: PagoComponent}
 ];
 
 @NgModule({
@@ -47,7 +51,9 @@ const routes: Routes = [
     VistaProductoComponent,
     LoginComponent,
     BuscadorComponent,
-    NewUsuarioComponent
+    NewUsuarioComponent,
+    CarritoComponent,
+    PagoComponent
   ],
   imports: [
     BrowserModule,

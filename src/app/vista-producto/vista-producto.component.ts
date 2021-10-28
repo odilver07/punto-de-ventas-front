@@ -17,6 +17,7 @@ export class VistaProductoComponent implements OnInit {
   ngOnInit(): void {
     this.cargarCliente();
   }
+  
 
   cargarCliente():void {
     this.activatedR.params.subscribe(params => {

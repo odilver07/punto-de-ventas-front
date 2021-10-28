@@ -1,0 +1,41 @@
+
+
+<div *ngFor="let item of items" class="text-white container mt-5">
+    
+    <div class="row">
+        <div class="col-2">
+            <th *ngIf="!item.producto.foto">
+                <img src="../../assets/s1.png" class="figure-img img-fluid rounded ps-5" 
+                style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </th>
+            <th *ngIf="item.producto?.foto">
+                <img src="http://localhost:8080/api/uploads/img/{{item.producto.foto}}" 
+                class="figure-img img-fluid rounded ps-5"
+                style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </th>
+        </div>
+        <div class="col-5">
+            <h2>{{item.producto.nombre}}</h2>
+            <p class="text-secondary">Envio gratis <i class="bi bi-lightning-fill"></i><span>Full</span></p>
+            <a class="me-2" href="">Eliminar</a> <a class="me-2" href="">Comprar ahora</a> <a href="">Seguir comprando</a>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary" (click)="save(item)">+</button>
+            <button class="btn btn-info " (click)="delete(item)">-</button>
+            {{item.cantidad}} 
+            {{item.producto.cantidad}}
+        </div>
+        <div class="col-2">
+            Total: ${{item.total}}
+        </div>
+    </div>
+</div>
+<div class="container position-relative">
+    <div class="position-absolute top-0 end-0">
+        direccion:mariano azuela sinaloa  82560  Gratis <br>
+        total con envio: $5016 <br>
+        <h1>{{carrito.totalCarrito}}</h1>
+        <button [routerLink]="['/metodo/pago']" class="btn btn-primary">Comprar ahora</button> 
+    </div>
+</div>
+

@@ -9,6 +9,7 @@ import { Marca } from './marca';
 import { AuthService } from '../login/auth.service';
 import { Item } from './item';
 import { Carrito } from './carrito';
+import { Compra } from './compra';
 
 @Injectable({
   providedIn: 'root'
@@ -151,5 +152,9 @@ export class ProductoService {
 
   saveItem(item: Item):Observable<any>{
     return this.http.post<any>(this.urlEndPoint2+'/item',item, {headers: this.agregarAuthorizationHeader()} );
+  }
+
+  saveCompra(compra:Compra):Observable<Compra>{
+    return this.http.post<Compra>(`${this.urlEndPoint2}/guardar/compra`,compra,{headers: this.agregarAuthorizationHeader()});
   }
 }

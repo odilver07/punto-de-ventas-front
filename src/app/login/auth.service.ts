@@ -64,6 +64,7 @@ export class AuthService {
     this._usuario.apellido = payload.apellido;
     this._usuario.direccion = payload.direccion;
     this._usuario.codigo = payload.codigo;
+    this._usuario.id = payload.id;
     console.log(this._usuario);
     sessionStorage.setItem('usuario',JSON.stringify(this._usuario));
   }
