@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from './usuario';
@@ -11,8 +11,13 @@ export class AuthService {
   private _usuario: Usuario;
   private _token: string;
 
+  private _notificarLogin =  new EventEmitter<Usuario>();
+
   constructor(protected http: HttpClient) { }
 
+  get notificarLongin():EventEmitter<Usuario>{
+    return this._notificarLogin
+  }
 
   public get usuario():Usuario{
     if(this._usuario != null){

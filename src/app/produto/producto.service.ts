@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Producto } from './producto';
 import { Observable, of ,throwError} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -18,9 +18,16 @@ export class ProductoService {
   private urlEndPoint = 'http://localhost:8080/api/productos';
   private urlEndPoint2 = 'http://localhost:8080/api';
   private httpHeaders =  new HttpHeaders({'Content-Type' : 'application/json'});
+
+  private _notificarCarrito = new EventEmitter<Carrito>();
+
   constructor(private http: HttpClient, 
     protected router: Router
     ,protected authService: AuthService) { }
+
+    get notificarCarrito(): EventEmitter<Carrito>{
+      return this._notificarCarrito;
+    }
 
   private agregarAuthorizationHeader(){
     let token = this.authService.token;
@@ -156,5 +163,9 @@ export class ProductoService {
 
   saveCompra(compra:Compra):Observable<Compra>{
     return this.http.post<Compra>(`${this.urlEndPoint2}/guardar/compra`,compra,{headers: this.agregarAuthorizationHeader()});
+  }
+
+  getCompras(id:number):Observable<Compra[]>{
+    return this.http.get<Compra[]>(`${this.urlEndPoint2}/mis-compras/${id}`,{headers: this.agregarAuthorizationHeader()});
   }
 }

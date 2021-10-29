@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../login/auth.service';
+import { Usuario } from '../login/usuario';
+import { Carrito } from '../produto/carrito';
+import { ProductoService } from '../produto/producto.service';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +14,31 @@ import { AuthService } from '../login/auth.service';
 export class HeaderComponent implements OnInit {
 
   term: string;
-
-  constructor(public authService: AuthService, private router:Router) { }
+  cantidad:number;
+  usuario:Usuario;
+  carrito:Carrito;
+  constructor(public authService: AuthService, protected router:Router,private productoService:ProductoService) {
+   }
 
   ngOnInit(): void {
+    this.productoService.notificarCarrito.subscribe(
+      carrito => this.productoService.getCarrito(carrito.id).subscribe(
+        carrito => {
+          this.cantidad = carrito.items.length;
+          console.log(this.cantidad);
+        }
+      )
+    )
+    this.authService.notificarLongin.subscribe(
+      usuario => {
+        this.productoService.getCarrito(usuario.carritoid).subscribe(
+          carrito => {
+            this.cantidad = carrito.items.length;
+            console.log(this.cantidad);
+          }
+        )
+      }
+    )
   }
 
   logout():void{

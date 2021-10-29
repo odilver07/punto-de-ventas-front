@@ -23,6 +23,7 @@ import { BuscadorComponent } from './buscador/buscador.component';
 import { NewUsuarioComponent } from './login/new-usuario/new-usuario.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PagoComponent } from './pago/pago.component';
+import { ComprasComponent } from './compras/compras.component';
 
 // Rutas
 const routes: Routes = [
@@ -36,7 +37,8 @@ const routes: Routes = [
   {path: 'productos/disponibles/:term', component: BuscadorComponent},
   {path: 'new/user', component: NewUsuarioComponent},
   {path: 'carrito', component: CarritoComponent},
-  {path: 'metodo/pago', component: PagoComponent}
+  {path: 'metodo/pago', component: PagoComponent},
+  {path: 'mis/compras', component: ComprasComponent}
 ];
 
 @NgModule({
@@ -53,7 +55,8 @@ const routes: Routes = [
     BuscadorComponent,
     NewUsuarioComponent,
     CarritoComponent,
-    PagoComponent
+    PagoComponent,
+    ComprasComponent
   ],
   imports: [
     BrowserModule,

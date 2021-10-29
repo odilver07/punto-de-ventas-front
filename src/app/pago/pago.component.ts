@@ -5,6 +5,7 @@ import { Usuario } from '../login/usuario';
 import { AuthService } from '../login/auth.service';
 import { Router } from '@angular/router';
 import { ProductoService } from '../produto/producto.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pago',
@@ -34,6 +35,17 @@ export class PagoComponent implements OnInit {
       carrito => {
         this.carrito = carrito;
         console.log(this.carrito);
+        if(this.carrito.totalCarrito <= 0){
+          Swal.fire({
+            title: 'El carrito esta vacio',
+            background: '#040404',
+            imageUrl: 'http://localhost:8080/api/uploads/img/alto-ahi-loca.jpg',
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: 'Custom image'
+          })
+          this.router.navigate(['/carrito'])
+        }
       }
     );
   }
@@ -48,7 +60,10 @@ export class PagoComponent implements OnInit {
     console.log(this.compra);
     console.log(this.user2);
     this.productoService.saveCompra(this.compra).subscribe(
-      compra => console.log(compra)
+      compra => {console.log(compra);
+        this.productoService.notificarCarrito.emit(this.carrito);
+      this.router.navigate(['/mis/compras'])
+      }
     )
   }
 

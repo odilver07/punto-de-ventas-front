@@ -34,33 +34,37 @@ export class ProductoComponent implements OnInit {
       let idCar = this.authService.usuario.carritoid;
       this.productoService.getCarrito(idCar).subscribe( carrito => {
         let encontrado = false;
-        let idItem;
+        let idEnc = 0;
         let iterador = 0;
         while(encontrado==false && iterador < carrito.items.length){
           if(carrito.items[iterador].producto.id == id){
             encontrado = true;
-            idItem = id;
-            console.log(idItem);
+            idEnc = id;
+            console.log(id+' aqui el iditem');
           }
-          if(encontrado == true){
-            this.carrito =  new Carrito();
-            this.carrito.id = idCar;
-            this.item = new Item();
-            this.item.cantidad = 1;
-            this.item.id = idItem;
-            this.carrito.items.push(this.item);
-            this.productoService.updateCarrito(this.carrito).subscribe( c => {
-              console.log(c);
-            });
-            this.producto = null;
-            this.item = null;
-            this.carrito = null;
-            this.router.navigate(['/productos']);
-            return;
-        }
         iterador++;
       }
-      if(encontrado==false){
+      console.log(encontrado);
+      if(encontrado === true){
+        this.carrito =  new Carrito();
+        this.carrito.id = idCar;
+        this.item = new Item();
+        this.item.cantidad = 1;
+        this.item.id = id;
+        console.log(this.item.id);
+        this.carrito.items.push(this.item);
+        this.productoService.updateCarrito(this.carrito).subscribe( c => {
+          console.log(c);
+          this.productoService.notificarCarrito.emit(this.carrito);
+        });
+        this.producto = null;
+        this.item = null;
+        this.carrito = null;
+        this.router.navigate(['/productos']);
+        return;
+      }
+
+      if(encontrado===false){
         this.productoService.getProducto(id).subscribe( producto => {
         this.item = new Item();
         this.item.cantidad = 1;
@@ -75,6 +79,7 @@ export class ProductoComponent implements OnInit {
           console.log(item.producto.id);
           this.productoService.updateCarrito(this.carrito).subscribe( c => {
             console.log(c);
+            this.productoService.notificarCarrito.emit(this.carrito);
             this.producto = null;
             this.item = null;
             this.carrito = null;

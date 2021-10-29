@@ -1,0 +1,10 @@
+<div class="container" *ngFor="let compra of compras">
+    <div>
+        {{compra.totalCompra}} total
+    </div>
+    <div *ngFor="let item of compra.items">
+        {{item.cantidad}} <p>cantidad</p> <br>
+        {{item.total}} <p>total</p> <br>
+        {{item.producto.nombre}} <p>producto</p>
+    </div>
+</div>

@@ -21,11 +21,16 @@ export class NewUsuarioComponent implements OnInit {
   }
 
   crearUsuario():void{
-    this.authService.crearUsuario(this.usuario).subscribe( usuario => {
-      console.log(usuario);
+    
+    try{
+      this.authService.crearUsuario(this.usuario).subscribe();
       this.router.navigate(['/login']);
       Swal.fire('Usuario creado', 'success');
-    });
+    }catch(e){
+      console.log(e);
+      this.router.navigate(['/login']);
+      Swal.fire('Error', 'success');
+    }
   }
 
   click():void{

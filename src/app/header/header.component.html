@@ -13,21 +13,26 @@
             <a class="nav-link" aria-current="page" [routerLink]="['/productos/admon/page/0']" routerLinkActive="router-link-active" >Productos admon</a>
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2 bg-dark text-white" type="text" placeholder="Buscar telefono" aria-label="Buscar telefono" [(ngModel)]="term" name="term">
-          <button class="btn btn-outline-success" (click)="buscar()" routerLinkActive="router-link-active" >Buscar</button>
+        <form class="d-flex col-4">
+          <input class="form-control me-2 bg-dark text-info border border-info" type="text" placeholder="Buscar telefono" aria-label="Buscar telefono" [(ngModel)]="term" name="term">
+          <button class="btn btn-outline-primary" (click)="buscar()" routerLinkActive="router-link-active" ><i class="bi bi-search"></i></button>
         </form>
         <ul class="navbar-nav navbar-right">
-          <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')">
-            <a [routerLink]="['/carrito']" class="text-white" style="font-size: 30px;">
-              <i class="bi bi-cart3"></i> carrito
-            </a>
+          <li class="ms-2" *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')">
+            <button [routerLink]="['/carrito']" class="btn btn-outline-info">
+              <i class="bi bi-cart3"></i> Carrito <span class="badge bg-info">{{cantidad}}</span>
+            </button>
           </li>
-          <li *ngIf="!authService.isAuthenticated()" class="mt-1">
-            <a class="btn btn-outline-primary" [routerLink]="['/login']">Login</a>
+          <li class="ms-2"  *ngIf="!authService.isAuthenticated()">
+            <a class="btn btn-outline-info" [routerLink]="['/login']">Login</a>
           </li>
-          <li *ngIf="authService.isAuthenticated()" class="">
-            <button class="btn btn-outline-primary" (click)=logout()>Salir</button>  
+          <li class="ms-2" *ngIf="authService.isAuthenticated()">
+            <button [routerLink]="['/mis/compras']" class="btn btn-outline-warning">
+              <i class="bi bi-box-seam"></i> Mis compras
+            </button>
+          </li>
+          <li *ngIf="authService.isAuthenticated()" class="ms-2">
+            <button class="btn btn-outline-danger" (click)=logout()><i class="bi bi-door-open"></i>Salir</button>  
           </li>
         </ul>
       </div>
