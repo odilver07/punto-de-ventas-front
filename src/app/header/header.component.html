@@ -1,16 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Pokercel <i class="bi bi-suit-club-fill"></i></a>
+      <a class="navbar-brand ms-4 mt-1" [routerLink]="['/productos']">
+        <h3>
+          <span class="text-success">Pok</span>er<span class="text-danger">cel</span> 
+          <i class="bi bi-suit-club-fill text-success"></i>
+        </h3>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" [routerLink]="['/productos']" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" >Inicio</a>
+          <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_ADMIN')" class="nav-item">
+            <button [routerLink]="['/productos/admon/page/0']" class="btn btn-outline-success">
+              <i class="bi bi-tools"></i> Administrador de productos
+            </button>
           </li>
-          <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_ADMIN')" class="nav-item" >
-            <a class="nav-link" aria-current="page" [routerLink]="['/productos/admon/page/0']" routerLinkActive="router-link-active" >Productos admon</a>
+          <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_ADMIN')" class="ms-2">
+            <button [routerLink]="['/compras/admon']" routerLinkActive="router-link-active"  type="button" class="btn btn-outline-info position-relative">
+              <i class="bi bi-truck"></i> Pedidos
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{cantidadPendientes}}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
           </li>
         </ul>
         <form class="d-flex col-4">
@@ -18,7 +31,7 @@
           <button class="btn btn-outline-primary" (click)="buscar()" routerLinkActive="router-link-active" ><i class="bi bi-search"></i></button>
         </form>
         <ul class="navbar-nav navbar-right">
-          <li class="ms-2" *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')">
+          <li class="ms-2" *ngIf="authService.isAuthenticated() && !authService.hasRole('ROLE_ADMIN')">
             <button [routerLink]="['/carrito']" class="btn btn-outline-info">
               <i class="bi bi-cart3"></i> Carrito <span class="badge bg-info">{{cantidad}}</span>
             </button>
@@ -26,7 +39,7 @@
           <li class="ms-2"  *ngIf="!authService.isAuthenticated()">
             <a class="btn btn-outline-info" [routerLink]="['/login']">Login</a>
           </li>
-          <li class="ms-2" *ngIf="authService.isAuthenticated()">
+          <li class="ms-2" *ngIf="authService.isAuthenticated() && !authService.hasRole('ROLE_ADMIN')">
             <button [routerLink]="['/mis/compras']" class="btn btn-outline-warning">
               <i class="bi bi-box-seam"></i> Mis compras
             </button>

@@ -5,6 +5,7 @@ import { ProductoService } from '../produto/producto.service';
 import { Carrito } from '../produto/carrito';
 import { Router } from '@angular/router';
 import { Item } from '../produto/item';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-carrito',
@@ -32,6 +33,17 @@ export class CarritoComponent implements OnInit {
   obtenerCarrito():void{
     this.productoService.getCarrito(this.usuario.carritoid).subscribe( c => {
       this.carrito = c;
+      if(this.carrito.totalCarrito == 0){
+        this.router.navigate(['/productos']);
+        Swal.fire({
+          title: 'El carrito esta vacio &#128517;',
+          background: '#040404',
+          imageUrl: 'http://localhost:8080/api/uploads/img/alto-ahi-loca.jpg',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'Custom image',
+        });
+      }
       console.log(this.carrito);
       this.items = this.carrito.items;
     })

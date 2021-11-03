@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { Usuario } from './usuario';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { ProductoService } from '../produto/producto.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   usuario: Usuario;
   error: number;
-  constructor(protected authService: AuthService, protected router: Router) {
+  constructor(protected authService: AuthService, protected router: Router, private productoService: ProductoService) {
     this.usuario =  new Usuario();
    }
 
@@ -38,6 +39,13 @@ export class LoginComponent implements OnInit {
       console.log(usuario);
       this.authService.notificarLongin.emit(usuario);
       this.router.navigate(['/productos'])
+      this.productoService.getAllCompras().subscribe(
+        compras =>  {
+          compras.map(c => c.fecha = c.fecha.substring(0,10));
+          compras = compras.map(c => c = c).reverse();
+          this.productoService.notificarCompras.emit(compras);
+        }
+      );
     }, err => {
       Swal.fire({
         position: 'center',

@@ -1,10 +1,57 @@
-<div class="container" *ngFor="let compra of compras">
-    <div>
-        {{compra.totalCompra}} total
+<div class="container mt-3" *ngFor="let compra of compras">
+  <p>
+    <a class="btn btn-outline-primary text-white border border-primary" data-bs-toggle="collapse"
+      href="#collapseExample{{compra.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Compra hecha el: {{compra.fecha}}
+    </a>
+  </p>
+  <div class="collapse" id="collapseExample{{compra.id}}">
+    <div class="bg-secondary text-white card card-body border border-info border-2">
+      <h3>
+        Total: {{compra.totalCompra}}
+      </h3>
+
+      <div>
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th *ngIf="compra.enviado == 0">
+                Estatus: <b class="text-info">Se esta empacando</b> <br>
+              </th>
+              <th *ngIf="compra.enviado == 1">
+                Estatus: <b class="text-primary">En camino</b><br>
+              </th>
+              <th *ngIf="compra.enviado == 2">
+                Estatus: <b class="bg-dark text-danger">Entregado</b><br>
+              </th>
+              <th>cantidad</th>
+              <th>nombre</th>
+              <th>precio</th>
+              <th>descripcion</th>
+              <th>marca</th>
+            </tr>
+          </thead>
+
+          <tbody *ngFor="let item of compra.items">
+            <tr>
+              <th *ngIf="!item.producto.foto">
+                <img src="../../assets/s1.png" class="figure-img img-fluid rounded ps-5"
+                  style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              </th>
+              <th *ngIf="item.producto?.foto">
+                <img src="http://localhost:8080/api/uploads/img/{{item.producto.foto}}"
+                  class="figure-img img-fluid rounded ps-5" style="width: 120px; cursor: pointer;"
+                  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              </th>
+              <th>{{item.cantidad}}</th>
+              <th>{{item.producto.nombre}}</th>
+              <th>${{item.producto.precio}}</th>
+              <th>{{item.producto.descripcion}}</th>
+              <th>{{item.producto.marca.nombre}}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div *ngFor="let item of compra.items">
-        {{item.cantidad}} <p>cantidad</p> <br>
-        {{item.total}} <p>total</p> <br>
-        {{item.producto.nombre}} <p>producto</p>
-    </div>
+  </div>
 </div>

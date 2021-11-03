@@ -24,6 +24,7 @@ import { NewUsuarioComponent } from './login/new-usuario/new-usuario.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PagoComponent } from './pago/pago.component';
 import { ComprasComponent } from './compras/compras.component';
+import { ComprasAdmonComponent } from './compras-admon/compras-admon.component';
 
 // Rutas
 const routes: Routes = [
@@ -38,7 +39,8 @@ const routes: Routes = [
   {path: 'new/user', component: NewUsuarioComponent},
   {path: 'carrito', component: CarritoComponent},
   {path: 'metodo/pago', component: PagoComponent},
-  {path: 'mis/compras', component: ComprasComponent}
+  {path: 'mis/compras', component: ComprasComponent},
+  {path: 'compras/admon', component: ComprasAdmonComponent}
 ];
 
 @NgModule({
@@ -56,7 +58,8 @@ const routes: Routes = [
     NewUsuarioComponent,
     CarritoComponent,
     PagoComponent,
-    ComprasComponent
+    ComprasComponent,
+    ComprasAdmonComponent
   ],
   imports: [
     BrowserModule,

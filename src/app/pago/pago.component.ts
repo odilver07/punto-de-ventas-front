@@ -17,6 +17,13 @@ export class PagoComponent implements OnInit {
   user2:Usuario;
   carrito:Carrito;
   compra:Compra;
+  asentamiento:any[] = [];
+  colonia:any;
+  numeroCasa:string;
+  calle:string;
+  cp:number;
+
+
   constructor(private authService:AuthService,protected router:Router,private productoService:ProductoService) { 
     try{
       this.usuario = authService.usuario;
@@ -51,6 +58,13 @@ export class PagoComponent implements OnInit {
   }
 
   comprar():void{
+    if(this.asentamiento[0].response.municipio == undefined && this.colonia == undefined && this.numeroCasa == undefined  && this.calle == undefined){
+      console.log('Agregue todos los campos');
+      return;
+    }
+
+    const direccion = 'Colonia: '+this.colonia+' - '+'Estado: '+this.asentamiento[0].response.estado+' - '+'Municipio: '
+    + this.asentamiento[0].response.municipio+' - '+'Calle: '+this.calle+' - '+'Numero de casa: '+this.numeroCasa+' - '+'Codigo postal: '+ this.cp;
     this.compra =  new Compra();
     this.user2 =  new Usuario();
     this.user2.id = this.usuario.id;
@@ -58,13 +72,36 @@ export class PagoComponent implements OnInit {
     this.compra.totalCompra =  this.carrito.totalCarrito;
     this.compra.usuario = this.user2;
     console.log(this.compra);
-    console.log(this.user2);
-    this.productoService.saveCompra(this.compra).subscribe(
-      compra => {console.log(compra);
-        this.productoService.notificarCarrito.emit(this.carrito);
-      this.router.navigate(['/mis/compras'])
-      }
-    )
+    console.log(this.cp);
+    if(this.cp != undefined){
+      this.productoService.saveCompra(this.compra).subscribe(
+        compra => {console.log(compra);
+          this.productoService.notificarCarrito.emit(this.carrito);
+        this.router.navigate(['/mis/compras'])
+        }
+      );
+      this.productoService.actualizarUsuario(this.authService.usuario.id, direccion).subscribe(
+        user => {
+          console.log(user);
+        }
+      )
+    }
+  }
+
+  buscarCp(){
+    if(this.cp == null){
+      console.log('Agregue caodigo postal valido');
+      return;
+    }
+    const cpString = this.cp+'';
+    if(cpString.length !=5){
+      console.log('El codigo postal debe tener 5 digitos');
+      return;
+    }
+      this.productoService.getCiudadCP(this.cp).subscribe( cp => {
+        console.log(cp);
+        this.asentamiento = cp;
+      });
   }
 
 }

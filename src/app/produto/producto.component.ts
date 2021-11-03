@@ -17,7 +17,7 @@ export class ProductoComponent implements OnInit {
   producto: Producto;
   item: Item;
   carrito:Carrito;
-  constructor(private productoService:ProductoService, private authService: AuthService, protected router: Router) { 
+  constructor(private productoService:ProductoService, public authService: AuthService, protected router: Router) { 
     
   }
 

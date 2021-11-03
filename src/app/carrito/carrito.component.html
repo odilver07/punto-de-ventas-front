@@ -5,7 +5,7 @@
 </div>
 <div class="text-white container mt-5 col-8" >
     <div class="row border border-info my-2" *ngFor="let item of items" style="background-color: #090808;">
-        <div class="col-2 mt-2">
+        <div class="col-2 my-auto">
             <th *ngIf="!item.producto.foto">
                 <img src="../../assets/s1.png" class="figure-img img-fluid rounded ps-5" 
                 style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -16,16 +16,16 @@
                 style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             </th>
         </div>
-        <div class="col-5">
+        <div class="col-5 my-2">
             <h2>{{item.producto.nombre}}</h2>
-            <p class="text-secondary">Envio gratis <i class="bi bi-lightning-fill"></i><span>Full</span></p>
+            <p style="color: lime;">Envio gratis <i class="bi bi-lightning-fill"></i><span>Full</span></p>
             <a class="me-2" href="">Eliminar</a> <a class="me-2" href="">Comprar ahora</a> <a href="">Seguir comprando</a>
         </div>
         <div class="col-2 mt-5">
             <button class="btn btn-primary me-2" (click)="save(item)">+</button>
             <button class="btn btn-info " (click)="delete(item)">-</button>
         </div>
-        <div class="col-2 mt-3">
+        <div class="col-2 my-auto">
             <b>Costo:</b> ${{item.producto.precio}} <br>
             <b>Cantidad:</b> {{item.cantidad}} <br>
             <b>Total:</b> ${{item.total}}

@@ -6,4 +6,6 @@ export class Compra{
     items:Item[] = [];
     totalCompra:number;
     usuario:Usuario;
+    fecha:string;
+    enviado:number;
 }

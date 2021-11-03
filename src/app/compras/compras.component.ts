@@ -20,7 +20,8 @@ export class ComprasComponent implements OnInit {
       
       this.productoService.getCompras(this.usuario.id).subscribe( compras => {
         this.compras = compras;
-        console.log(compras);
+        this.compras =  this.compras.map(c =>  c = c).reverse();
+        this.compras.map( c => c.fecha = c.fecha.substring(0,10));
       })
     }catch(e){
       this.router.navigate(['/login']);

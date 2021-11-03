@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   cantidad:number;
   usuario:Usuario;
   carrito:Carrito;
+  cantidadPendientes:number = 0;
   constructor(public authService: AuthService, protected router:Router,private productoService:ProductoService) {
    }
 
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
           console.log(this.cantidad);
         }
       )
-    )
+    );
     this.authService.notificarLongin.subscribe(
       usuario => {
         this.productoService.getCarrito(usuario.carritoid).subscribe(
@@ -38,7 +39,15 @@ export class HeaderComponent implements OnInit {
           }
         )
       }
-    )
+    );
+    this.productoService.notificarCompras.subscribe( compras => {
+      this.cantidadPendientes = 0;
+      compras.forEach( c => {
+        if(c.enviado == 0){
+          this.cantidadPendientes++;
+        }
+      })
+    })
   }
 
   logout():void{

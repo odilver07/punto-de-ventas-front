@@ -10,6 +10,7 @@ import { AuthService } from '../login/auth.service';
 import { Item } from './item';
 import { Carrito } from './carrito';
 import { Compra } from './compra';
+import { Usuario } from '../login/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,12 @@ export class ProductoService {
   private urlEndPoint = 'http://localhost:8080/api/productos';
   private urlEndPoint2 = 'http://localhost:8080/api';
   private httpHeaders =  new HttpHeaders({'Content-Type' : 'application/json'});
+  private httpHeaderCP =  new HttpHeaders({'Content-Type' : 'application/json'});
+  
 
   private _notificarCarrito = new EventEmitter<Carrito>();
+
+  private _notificarCompras =  new EventEmitter<Compra[]>();
 
   constructor(private http: HttpClient, 
     protected router: Router
@@ -27,6 +32,10 @@ export class ProductoService {
 
     get notificarCarrito(): EventEmitter<Carrito>{
       return this._notificarCarrito;
+    }
+
+    get notificarCompras(): EventEmitter<Compra[]>{
+      return this._notificarCompras;
     }
 
   private agregarAuthorizationHeader(){
@@ -167,5 +176,21 @@ export class ProductoService {
 
   getCompras(id:number):Observable<Compra[]>{
     return this.http.get<Compra[]>(`${this.urlEndPoint2}/mis-compras/${id}`,{headers: this.agregarAuthorizationHeader()});
+  }
+
+  getAllCompras():Observable<Compra[]>{
+    return this.http.get<Compra[]>(`${this.urlEndPoint2}/compras/admon`,{headers: this.agregarAuthorizationHeader()});
+  }
+
+  enviarCompra(id, enviado):Observable<Compra>{
+    return this.http.put<Compra>(`${this.urlEndPoint2}/enviado/${id}/${enviado}`,null,{headers: this.agregarAuthorizationHeader()});
+  }
+
+  getCiudadCP(cp):Observable<any>{
+    return this.http.get<any>(`https://api-cp.multiservicios-web.com.mx/query/info_cp/${cp}?token=099a547a-1951-4b62-b621-7103471f0465`);
+  }
+
+  actualizarUsuario(id,direccion):Observable<Usuario>{
+    return this.http.put<Usuario>(`http://localhost:8080/api/usuario/direccion/${id}/${direccion}`,null, {headers: this.agregarAuthorizationHeader()});
   }
 }
