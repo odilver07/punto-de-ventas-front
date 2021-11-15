@@ -1,21 +1,11 @@
 <div class="card fondoNegro text-white">
     <div class="card-header"></div>
     <div class="card-body row">
-        <!-- <div class="col-sm-8">col-sm-8</div>
-        <div class="col-sm-4">col-sm-4</div> -->
         <form class="col-sm-9">
             <div class="form-group row mt-3">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" [(ngModel)]="producto.nombre" name="nombre" #nombre="ngModel" required minlength="2" id="formNombre">
-                    <!-- <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
-                        <div *ngIf="nombre.errors.required">
-                            nombre es requerido
-                        </div>
-                        <div *ngIf="nombre.errors.minlength">
-                            el nombre debe tener por lo menos 2 letras
-                        </div>
-                    </div> -->
                 </div>
             </div>
 
@@ -27,7 +17,7 @@
             </div>
 
             <div class="form-group row mt-4">
-                <label for="descripcion" class="col-form-label col-sm-2">Descripcion</label>
+                <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" [(ngModel)]="producto.descripcion" name="descripcion">
                 </div>
@@ -41,15 +31,18 @@
             </div>
             
 
-            <div class="form-group row mt-4">
+            <div class="form-group mt-4">
                 <label for="formFile" class="form-label">Seleccione una imagen para el producto</label>
                 <input class="form-control" type="file" id="formFile" (change) = "seleccionarFoto($event)">
             </div>
 
-            <select [compareWith]="comprarMarca" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="marca" [(ngModel)]="producto.marca">
-                <option [ngValue]="undefined">--- Seleccionar una marca ---</option>
-                <option *ngFor= "let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
-            </select>
+            <div class="mx-4">
+                <label for="">Marca</label>
+                <select [compareWith]="comprarMarca" class="form-select form-select-lg" aria-label=".form-select-lg example" name="marca" [(ngModel)]="producto.marca">
+                    <option [ngValue]="undefined">--- Seleccionar una marca ---</option>
+                    <option *ngFor= "let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
+                </select>
+            </div>
 
             <div class="form-group row mt-4">
                 <div class="col-sm-10">

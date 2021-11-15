@@ -36,7 +36,7 @@ export class CarritoComponent implements OnInit {
       if(this.carrito.totalCarrito == 0){
         this.router.navigate(['/productos']);
         Swal.fire({
-          title: 'El carrito esta vacio &#128517;',
+          title: 'El carrito esta vació &#128517;',
           background: '#040404',
           imageUrl: 'http://localhost:8080/api/uploads/img/alto-ahi-loca.jpg',
           imageWidth: 400,

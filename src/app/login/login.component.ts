@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   login():void {
     if(this.usuario.username == null || this.usuario.password == null){
-      Swal.fire('Error login', '${password} is already used by Odi07 ', 'error');
+      Swal.fire('Error login', 'Agregue sus datos', 'error');
       return;
     }
 

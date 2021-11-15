@@ -43,7 +43,7 @@ export class FormComponent implements OnInit {
     this.producto.nombre:this.producto.descripcion;
 
     if(this.producto.marca == null){
-      Swal.fire('Error','Elija una marca', 'warning');
+      Swal.fire('Error','Seleccione una marca ', 'warning');
       return;
     }
 
@@ -64,7 +64,7 @@ export class FormComponent implements OnInit {
   update():void{
 
     if(this.producto.marca == null){
-      Swal.fire('Error','Elija una marca', 'warning');
+      Swal.fire('Error','Seleccione una marca ', 'warning');
       return;
     }
 

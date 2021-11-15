@@ -41,13 +41,13 @@ export class ProductoAdmonComponent implements OnInit {
   delete(producto:Producto):void{
 
     Swal.fire({
-      title: 'Desea eliminar el producto?',
-      text: "No podra recuperalo despues de borrarlo",
+      title: '¿Desea eliminar el producto?',
+      text: "No podrá recupéralo después de borrarlo",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminar!',
+      confirmButtonText: '¡Si, Eliminar! ',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {

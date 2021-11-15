@@ -1,24 +1,28 @@
-<div *ngFor="let p of productos" class="row">
-    <div class="col-2">
-        <div *ngIf="!p.foto">
-            <img src="../../assets/s1.png" class="figure-img img-fluid rounded ps-5" [routerLink]="['/producto/vista', p.id]"
-            style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+<div class="container mt-4">
+    <div *ngFor="let p of productos" class="row mx-auto py-2 border rounded-3">
+        <div class="col-2">
+            <div *ngIf="!p.foto">
+                <img src="../../assets/s1.png" class="figure-img img-fluid rounded ps-5" [routerLink]="['/producto/vista', p.id]"
+                style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </div>
+            <div *ngIf="p?.foto">
+                <img src="http://localhost:8080/api/uploads/img/{{p.foto}}" 
+                class="figure-img img-fluid rounded ps-5" [routerLink]="['/producto/vista', p.id]"
+                style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </div>
         </div>
-        <div *ngIf="p?.foto">
-            <img src="http://localhost:8080/api/uploads/img/{{p.foto}}" 
-            class="figure-img img-fluid rounded ps-5" [routerLink]="['/producto/vista', p.id]"
-            style="width: 120px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <div class="col-4">
+            <p class="h2">{{p.nombre}}</p>
+            LLevatelo por tan solo <b class="text-primary">${{p.precio}}</b> <br>
+            <span class="text-info"> 12 x {{p.meses}} sin intereses</span> <br>
+            <span style="color: lime;">Envio gratis <i class="bi bi-lightning-fill"></i></span>
         </div>
-    </div>
-    <div class="col-6">
-        <h3>{{p.nombre}}</h3>
-        <b>${{p.precio}}</b>
-        <p>{{p.meses}}</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium facilis quaerat autem inventore vero tempora repellendus ad explicabo expedita officia nulla, corrupti, vitae, doloribus quas accusantium quis? Perspiciatis, itaque numquam.</p>
-        <!-- <p>{{p.descripcion}}</p> -->
-        <span>Envio gratis</span>
+        <div class="col-4 my-auto">
+            {{p.descripcion}}
+        </div>
     </div>
 </div>
+
 
 
 
